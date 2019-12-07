@@ -1,0 +1,58 @@
+<FoodCard@BoxLayout>:
+    source: ""
+    title: ""
+    description: ""
+    cost: 8.99
+    FloatLayout:
+        size: root.size
+        pos: root.pos
+        MDCard:
+            size: root.size
+            pos: root.pos
+            orientation: 'vertical'
+            BoxLayout:
+                size_hint_y: None
+                height: tb.height
+                padding: dp(15), dp(0), dp(0), dp(0)
+                canvas.before:
+                    Color:
+                        rgba: app.theme_cls.primary_color
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+                MDLabel:
+                    id: tb
+                    markup: True
+                    font_size: sp(20)
+                    height: self.texture_size[1] + dp(15)
+                    size_hint_y: None
+                    text: root.title
+                    color: 1,1,1,1
+            Image:
+                source: root.source
+                size_hint: 1, None
+                height: root.height - tb.height - label.height - button.height
+                allow_stretch: True
+                keep_ratio: False
+            BoxLayout:
+                padding: dp(15), dp(10), dp(15), dp(0)
+                MDLabel:
+                    id: label
+                    height: self.texture_size[1] + dp(15)
+                    size_hint_y: None
+                    text: root.description
+                    color: 0,0,0,1
+            BoxLayout:
+                id: button
+                padding: dp(15), dp(5), dp(15), dp(5)
+                size_hint_y: None
+                height: self.minimum_height
+                MDRoundFlatIconButton:
+                    pos_hint: {"center_x": 1}
+                    theme_text_color: 'Custom'
+                    text_color: app.theme_cls.primary_color
+                    size_hint: None, None
+                    text: "Add to cart"
+                    icon: "cart-plus"
+                    on_release:
+                        app.add_to_cart(root.title, root.source, root.cost)

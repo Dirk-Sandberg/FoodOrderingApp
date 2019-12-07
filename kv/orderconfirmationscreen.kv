@@ -1,0 +1,13 @@
+<OrderConfirmationScreen@Screen>:
+    FloatLayout:
+        MDFloatingActionButton:
+            id: fab
+            pos: dp(15), dp(15)
+            icon: 'arrow-left'
+            on_release:
+                root.manager.parent.parent.prev_screen()
+        MDFloatingActionButton:
+            pos: root.width - self.width - dp(15), dp(15)
+            icon: 'arrow-right'
+            on_release:
+                root.manager.parent.parent.next_screen()

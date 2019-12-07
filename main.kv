@@ -1,0 +1,27 @@
+#:include kv/nav_drawer.kv
+#:include kv/menu_screen.kv
+#:include kv/orderscreen.kv
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+#:import colors kivymd.color_definitions.colors
+
+
+
+
+NavigationLayout:
+    id: nav_drawer
+    RestaurantNavDrawer:
+    BoxLayout:
+        orientation: 'vertical'
+        MDToolbar:
+            title: "Peking "
+            left_action_items: [['menu' if screen_manager.current != "order_screen" else "close", lambda x: nav_drawer.toggle_nav_drawer() if screen_manager.current != "order_screen" else screen_manager.change_screen("menu_screen")]]
+            right_action_items: [['cart', lambda x: screen_manager.change_screen("order_screen")]]
+            md_bg_color: app.theme_cls.primary_color
+        RestaurantScreenManager:
+            id: screen_manager
+            transition: FadeTransition(clearcolor=get_color_from_hex(colors['Light']['Background']))
+            MenuScreen:
+                name: "menu_screen"
+            OrderScreen:
+                name: "order_screen"
+                id: order_screen

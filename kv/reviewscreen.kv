@@ -1,0 +1,66 @@
+#:include kv/side.kv
+#:include kv/drink.kv
+
+<RemoveCardLeftIconButton@ILeftBodyTouch+MDIconButton>:
+    icon: "cart-remove"
+
+<PriceTotal@IRightBody+MDLabel>:
+    text: "nothing"
+
+
+
+<ReviewCard>:
+    orientation: 'vertical'
+    name: ""
+    cost: 0.0
+    side: ""
+    drink: ""
+    height: line.height
+    TwoLineAvatarIconListItem:
+        id: line
+        text: "Item: " + root.name
+        secondary_text: root.side + ", " + root.drink
+        RemoveCardLeftIconButton:
+            on_release:
+                toast(str(root.height))
+        PriceTotal:
+            text: str(root.cost)
+
+<ReviewScreen@Screen>:
+    on_enter:
+        self.set_fields()
+    FloatLayout:
+        BoxLayout:
+            padding: dp(20)
+            orientation: 'vertical'
+            #canvas.after:
+            #    Color:
+            #        rgba: 0,1,0,.3
+            #    Rectangle:
+            #        size: self.size
+            #        pos: self.pos
+            size_hint_y: None
+            height: root.height - fab.top
+            y: fab.top
+            MDLabel:
+                text: "Review your order"
+                size_hint_y: None
+                height: self.texture_size[1]
+                halign: 'center'
+            ScrollView:
+                do_scroll_x: False
+                MDList:
+                    spacing: dp(20)
+                    id: card_list
+
+        MDFloatingActionButton:
+            id: fab
+            pos: dp(15), dp(15)
+            icon: 'arrow-left'
+            on_release:
+                root.manager.parent.parent.prev_screen()
+        MDFloatingActionButton:
+            pos: root.width - self.width - dp(15), dp(15)
+            icon: 'arrow-right'
+            on_release:
+                root.manager.parent.parent.next_screen()

@@ -1,0 +1,26 @@
+#:include kv/foodcard.kv
+
+<MenuScreen>:
+    ScrollView:
+        do_scroll_x: False
+        GridLayout:
+            cols: 2
+            row_default_height: (self.width - self.cols*self.spacing[0])/self.cols
+            row_force_default: True
+            size_hint_y: None
+            height: self.minimum_height
+            padding: dp(15)
+            spacing: dp(15)
+
+            FoodCard:
+                source: "images/food1.jpg"
+                title: "Fried Rice"
+                description: "With chicken, pork, or shrimp"
+            FoodCard:
+                source: "images/food1.jpg"
+                title: "Noodles"
+                description: "With chicken, pork, or shrimp"
+            FoodCard:
+                source: "images/food1.jpg"
+            FoodCard:
+                source: "images/food1.jpg"

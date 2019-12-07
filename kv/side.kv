@@ -1,0 +1,18 @@
+#:import toast kivymd.toast.toast
+
+<SideImage@ILeftBody+Image>:
+    source: ""
+    allow_stretch: True
+    keep_ratio: False
+
+<Side>:
+    dialog: None # Reference to the dialog box
+    item_screen: None # Reference to the item screen for this entree
+    source: ""
+    on_release:
+        self.dialog.dismiss()
+        self.item_screen.side = self.text
+        self.item_screen.side_cost = self.cost
+        toast("Chose " + self.text)
+    SideImage:
+        source: root.source

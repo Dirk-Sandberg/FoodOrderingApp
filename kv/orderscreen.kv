@@ -1,0 +1,18 @@
+#:import FadeTransition kivy.uix.screenmanager.FadeTransition
+#:include kv/itemscreen.kv
+#:include kv/orderconfirmationscreen.kv
+#:include kv/reviewscreen.kv
+
+
+<OrderScreen>:
+    FloatLayout:
+        ScreenManager:
+            id: screen_manager
+            transition: FadeTransition(clearcolor=get_color_from_hex(colors['Light']['Background']))
+            ReviewScreen:
+                name: "review_screen"
+                id: review_screen
+            OrderConfirmationScreen:
+                name: "order_confirmation_screen"
+                id: order_confirmation_screen
+

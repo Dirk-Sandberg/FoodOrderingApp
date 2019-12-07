@@ -1,0 +1,73 @@
+#:include kv/side.kv
+#:include kv/drink.kv
+
+<ItemScreen>:
+    item: ""
+    source: ""
+    side: ""
+    drink: ""
+    cost: 0.0
+    drink_cost: 0.0
+    side_cost: 0.0
+    total_cost: self.cost + self.drink_cost + self.side_cost
+    FloatLayout:
+        BoxLayout:
+            padding: dp(15)
+            spacing: dp(15)
+            orientation: 'vertical'
+            size_hint_y: None
+            height: root.height - fab.height
+            y: fab.height
+            MDLabel:
+                text: root.item
+                size_hint_y: None
+                halign: "center"
+                font_size: dp(20)
+                height: self.texture_size[1]
+            Image:
+                source: root.source
+                #allow_stretch: True
+                #keep_ratio: False
+            BoxLayout:
+                size_hint_y: None
+                height: button.height
+                MDLabel:
+                    text: "Side: " + root.side
+                    size_hint_y: None
+                    height: button.height#self.texture_size[1]
+                MDRaisedButton:
+                    id: button
+                    size_hint_x: None
+                    width: button2.width
+                    text: "Change side"
+                    on_release:
+                        app.display_choose_side_menu(root)
+            BoxLayout:
+                size_hint_y: None
+                height: button.height
+                MDLabel:
+                    size_hint_y: None
+                    height: button.height#self.texture_size[1]
+                    text: "Drink: " + root.drink
+                MDRaisedButton:
+                    id: button2
+                    text: "Change drink"
+                    on_release:
+                        app.display_choose_drink_menu(root)
+            MDSeparator:
+            MDLabel:
+                size_hint_y: None
+                height: self.texture_size[1]
+                text: "Item Total: $" + str(root.total_cost)
+                halign: "center"
+        MDFloatingActionButton:
+            id: fab
+            pos: dp(15), dp(15)
+            icon: 'arrow-left'
+            on_release:
+                root.manager.parent.parent.prev_screen()
+        MDFloatingActionButton:
+            pos: root.width - self.width - dp(15), dp(15)
+            icon: 'arrow-right'
+            on_release:
+                root.manager.parent.parent.next_screen()
