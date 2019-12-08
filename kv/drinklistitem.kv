@@ -1,9 +1,11 @@
+#:import Drink fooditem.Drink
+
 <DrinkImage@ILeftBody+Image>:
     source: ""
     allow_stretch: True
     keep_ratio: False
 
-<Drink>:
+<DrinkListItem>:
     dialog: None # Reference to the dialog box
     item_screen: None # Reference to the item screen for this entree
     source: ""
@@ -11,6 +13,7 @@
         self.dialog.dismiss()
         self.item_screen.drink = self.text
         self.item_screen.drink_cost = self.cost
+        self.item_screen.meal.drink = Drink(self.text, float(self.cost))
         toast("Chose " + self.text)
     DrinkImage:
         source: root.source

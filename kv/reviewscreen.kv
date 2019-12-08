@@ -1,5 +1,5 @@
-#:include kv/side.kv
-#:include kv/drink.kv
+##:include kv/side.kv
+##:include kv/drink.kv
 
 <RemoveCardLeftIconButton@ILeftBodyTouch+MDIconButton>:
     icon: "cart-remove"
@@ -15,30 +15,30 @@
     cost: 0.0
     side: ""
     drink: ""
+    size_hint_y: None
     height: line.height
     TwoLineAvatarIconListItem:
         id: line
         text: "Item: " + root.name
-        secondary_text: root.side + ", " + root.drink
+        secondary_text: root.side + root.drink
+        #on_release:
+        #    print(root.height, line.height, root.parent.height)
         RemoveCardLeftIconButton:
             on_release:
-                toast(str(root.height))
+                app.root.ids.order_screen.remove_meal(root.name)
+                root.parent.remove_widget(root)
         PriceTotal:
             text: str(root.cost)
 
 <ReviewScreen@Screen>:
-    on_enter:
+    on_pre_enter:
         self.set_fields()
+    on_leave:
+        self.remove_cards()
     FloatLayout:
         BoxLayout:
             padding: dp(20)
             orientation: 'vertical'
-            #canvas.after:
-            #    Color:
-            #        rgba: 0,1,0,.3
-            #    Rectangle:
-            #        size: self.size
-            #        pos: self.pos
             size_hint_y: None
             height: root.height - fab.top
             y: fab.top
@@ -51,6 +51,7 @@
                 do_scroll_x: False
                 MDList:
                     spacing: dp(20)
+                    padding: dp(20)
                     id: card_list
 
         MDFloatingActionButton:

@@ -6,6 +6,7 @@ from menuscreen import MenuScreen
 from restaurantmanager import RestaurantScreenManager
 from orderscreen import OrderScreen
 from reviewscreen import ReviewScreen
+from fooditem import Side, Drink, Meal
 from kivymd.uix.dialog import ListMDDialog
 from kivymd.toast import toast
 
@@ -13,15 +14,16 @@ from kivymd.toast import toast
 class RestaurantNavDrawer(MDNavigationDrawer):
     pass
 
-class Side(TwoLineAvatarIconListItem):
+class SideListItem(TwoLineAvatarIconListItem):
     pass
-class Drink(TwoLineAvatarIconListItem):
+class DrinkListItem(TwoLineAvatarIconListItem):
     pass
 
 
 class MainApp(MDApp):
     sides = []
     drinks = []
+    meals = []
     drink_popup = None
     sides_popup = None
 
@@ -36,7 +38,7 @@ class MainApp(MDApp):
     def create_drinks(self):
         drinks = [["Fountain Drink", "images/food1.jpg", "No charge"], ["Dasani", "images/food1.jpg", "0.99"], ["Lemonade", "images/food1.jpg", "0.99"]]
         for i in range(len(drinks)):
-            drink = Drink()
+            drink = DrinkListItem()
             drink.text = drinks[i][0]
             drink.source = drinks[i][1]
             cost = 0.0 if drinks[i][2] == "No charge" else float(drinks[i][2])
@@ -47,7 +49,7 @@ class MainApp(MDApp):
     def create_sides(self):
         sides = [["White rice", "images/food1.jpg", "No charge"], ["Fried rice", "images/food1.jpg", "0.99"], ["Noodles", "images/food1.jpg", "0.99"]]
         for i in range(len(sides)):
-            side = Side()
+            side = SideListItem()
             side.text = sides[i][0]
             side.source = sides[i][1]
             cost = 0.0 if sides[i][2] == "No charge" else float(sides[i][2])
@@ -55,31 +57,32 @@ class MainApp(MDApp):
             side.secondary_text = "add $"+str(cost) if sides[i][2] != "No charge" else sides[i][2]
             self.sides.append(side)
 
-    def add_to_cart(self, thing, source, cost):
-        print("Should have an item class")
-        toast("Added " + thing + " to your cart.")
-        self.root.ids.order_screen.add_order(thing, source, cost)
+    def add_to_cart(self, name, source, cost):
+        toast("Added " + name + " to your cart.")
+        meal = Meal(name, cost, source)
+        self.meals.append(meal)
+        self.root.ids.order_screen.add_meal(meal)
+        #self.root.ids.order_screen.add_order(name, source, cost)
 
     def display_choose_side_menu(self, item_screen):
-        if not self.sides_popup:
-            self.sides_popup = ListMDDialog()
-            self.sides_popup.title = "Select a side"
-            self.sides_popup.size_hint = (.8, .8)
-            for side in self.sides:
-                side.dialog = self.sides_popup
-                side.item_screen = item_screen
-                self.sides_popup.ids.list_layout.add_widget(side)
+        self.sides_popup = ListMDDialog()
+        self.sides_popup.title = "Select a side"
+        self.sides_popup.size_hint = (.8, .8)
+        for side in self.sides:
+            side.dialog = self.sides_popup
+            side.item_screen = item_screen
+            self.sides_popup.ids.list_layout.add_widget(side)
+
         self.sides_popup.open()
 
     def display_choose_drink_menu(self, item_screen):
-        if not self.drink_popup:
-            self.drink_popup = ListMDDialog()
-            self.drink_popup.title = "Select a drink"
-            self.drink_popup.size_hint = (.8, .8)
-            for drink in self.drinks:
-                drink.dialog = self.drink_popup
-                drink.item_screen = item_screen
-                self.drink_popup.ids.list_layout.add_widget(drink)
+        self.drink_popup = ListMDDialog()
+        self.drink_popup.title = "Select a drink"
+        self.drink_popup.size_hint = (.8, .8)
+        for drink in self.drinks:
+            drink.dialog = self.drink_popup
+            drink.item_screen = item_screen
+            self.drink_popup.ids.list_layout.add_widget(drink)
         self.drink_popup.open()
 
 
