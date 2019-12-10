@@ -29,8 +29,9 @@ class MainApp(MDApp):
 
     def on_start(self):
         self.theme_cls.primary_palette = 'Red'
-        self.theme_cls.accent_palette = 'DeepOrange'
-        self.theme_cls.accent_hue = '200'
+        self.theme_cls.accent_palette = 'Red'
+        self.theme_cls.primary_hue = '500'
+        self.theme_cls.accent_hue = '700'
         self.create_sides()
         self.create_drinks()
 
@@ -69,6 +70,8 @@ class MainApp(MDApp):
         self.sides_popup.title = "Select a side"
         self.sides_popup.size_hint = (.8, .8)
         for side in self.sides:
+            if side.parent:
+                side.parent.remove_widget(side)
             side.dialog = self.sides_popup
             side.item_screen = item_screen
             self.sides_popup.ids.list_layout.add_widget(side)
@@ -80,6 +83,8 @@ class MainApp(MDApp):
         self.drink_popup.title = "Select a drink"
         self.drink_popup.size_hint = (.8, .8)
         for drink in self.drinks:
+            if drink.parent:
+                drink.parent.remove_widget(drink)
             drink.dialog = self.drink_popup
             drink.item_screen = item_screen
             self.drink_popup.ids.list_layout.add_widget(drink)
