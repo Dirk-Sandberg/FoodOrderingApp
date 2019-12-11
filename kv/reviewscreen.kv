@@ -32,12 +32,17 @@
 
 <ReviewScreen@Screen>:
     on_pre_enter:
+        total.text = "0.0"
         self.set_fields()
+        self.animate_fab()
+
     on_leave:
+        if self.a: self.a.cancel(fab2)
         self.remove_cards()
     FloatLayout:
         BoxLayout:
             padding: dp(20)
+            spacing: dp(20)
             orientation: 'vertical'
             size_hint_y: None
             height: root.height - fab.top
@@ -53,7 +58,28 @@
                     spacing: dp(20)
                     padding: dp(20)
                     id: card_list
+            BoxLayout:
+                size_hint_y: None
+                height: self.minimum_height
+                padding: dp(20)
+                spacing: dp(20)
+                orientation: 'vertical'
+                MDSeparator:
+                BoxLayout:
+                    size_hint_y: None
+                    height: total.height
+                    MDLabel:
+                        height: self.texture_size[1]
+                        size_hint_y: None
+                        text: "Total"
+                        halign: "left"
 
+                    MDLabel:
+                        id: total
+                        height: self.texture_size[1]
+                        size_hint_y: None
+                        text: "0.0"
+                        halign: "right"
         MDFloatingActionButton:
             id: fab
             pos: dp(15), dp(15)
@@ -61,7 +87,8 @@
             on_release:
                 root.manager.parent.parent.prev_screen()
         MDFloatingActionButton:
+            id: fab2
             pos: root.width - self.width - dp(15), dp(15)
-            icon: 'arrow-right'
+            icon: 'check'
             on_release:
                 root.manager.parent.parent.next_screen()

@@ -1,7 +1,8 @@
-from kivy.uix.screenmanager import Screen
+from kivy.uix.screenmanager import Screen, FadeTransition, NoTransition
 from itemscreen import ItemScreen
 from kivymd.toast import toast
-
+from kivy.utils import get_color_from_hex
+from kivymd.color_definitions import colors
 
 class OrderScreen(Screen):
     meals = []  # List of Meal objects (entrees) that the user has added to cart
@@ -21,6 +22,10 @@ class OrderScreen(Screen):
         for screen in sm.screens:
             if screen.name == meal_to_remove.name + "_screen":
                 sm.screens.remove(screen)
+        # Subtract the total cost
+        review_screen = self.ids.review_screen
+        review_screen.ids.total.text = str(float(review_screen.ids.total.text)
+                                           - meal_to_remove.get_total_cost())
 
 
     def on_leave(self, *args):
@@ -39,15 +44,19 @@ class OrderScreen(Screen):
             # User clicked shopping cart with no items added
             toast("No entrees selected")
             return
-        for meal in self.meals:
+        for i, meal in enumerate(self.meals):
             item_screen = ItemScreen()
+            item_screen.screen_number = str(i+1)
             item_screen.meal = meal
             item_screen.item = meal.name
-            item_screen.name = meal.name+"_screen"
+            item_screen.name = meal.name+str(i)+"_screen"
             item_screen.cost = meal.cost
             item_screen.source = meal.source
             self.ids.screen_manager.add_widget(item_screen)
-        self.ids.screen_manager.current = self.meals[0].name+"_screen"
+        self.ids.screen_manager.transition = NoTransition()
+        self.ids.screen_manager.current = self.meals[0].name+"0_screen"
+        self.ids.screen_manager.transition = FadeTransition(clearcolor=get_color_from_hex(colors['Light']['Background']))
+
 
     def prev_screen(self):
         sm = self.ids.screen_manager
@@ -61,10 +70,10 @@ class OrderScreen(Screen):
             return
         # Only move to next entree screen if they've selected a side and drink
         current_screen_widget = sm.children[0]
-        if not current_screen_widget.meal.side.name:
-            toast("Please select a side")
-        elif not current_screen_widget.meal.drink.name:
-            toast("Please select a drink")
-        else:
-            sm.current = sm.next()
-
+        #if not current_screen_widget.meal.side.name:
+        #    toast("Please select a side")
+        #elif not current_screen_widget.meal.drink.name:
+        #    toast("Please select a drink")
+        #else:
+        #    sm.current = sm.next()
+        sm.current = sm.next()

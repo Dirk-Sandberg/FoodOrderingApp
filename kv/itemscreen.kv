@@ -10,6 +10,7 @@
     cost: 0.0
     drink_cost: 0.0
     side_cost: 0.0
+    screen_number: "0"
     total_cost: self.cost + self.drink_cost + self.side_cost
     FloatLayout:
         BoxLayout:
@@ -19,12 +20,22 @@
             size_hint_y: None
             height: root.height - fab.height
             y: fab.height
-            MDLabel:
-                text: root.item
+            BoxLayout:
                 size_hint_y: None
-                halign: "center"
-                font_size: dp(20)
-                height: self.texture_size[1]
+                height: self.minimum_height
+                Widget:
+                MDLabel:
+                    text: root.item
+                    size_hint_y: None
+                    halign: "center"
+                    font_size: sp(20)
+                    height: self.texture_size[1]
+                MDLabel:
+                    height: self.parent.height
+                    #valign: "middle"
+                    font_size: sp(20)
+                    halign: "right"
+                    text: str(root.screen_number) + "/" + str(len(app.root.ids.order_screen.ids.screen_manager.screens)-2)
             Image:
                 source: root.source
                 #allow_stretch: True
@@ -65,6 +76,9 @@
             id: fab
             pos: dp(15), dp(15)
             icon: 'arrow-left'
+            opacity: 0 if "0_" in root.name else 1
+            disabled: True if "0_" in root.name else False
+
             on_release:
                 root.manager.parent.parent.prev_screen()
         MDFloatingActionButton:
