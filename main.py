@@ -12,6 +12,13 @@ from fooditem import Side, Drink, Meal
 from kivymd.uix.dialog import ListMDDialog
 from kivymd.toast import toast
 
+from kivy.uix.boxlayout import BoxLayout
+from kivymd.uix.behaviors.ripplebehavior import RectangularRippleBehavior
+from kivymd.theming import ThemableBehavior
+from kivy.uix.behaviors import ButtonBehavior
+class Test(ThemableBehavior, RectangularRippleBehavior, ButtonBehavior,
+                BoxLayout):
+    pass
 
 class RestaurantNavDrawer(MDNavigationDrawer):
     pass
