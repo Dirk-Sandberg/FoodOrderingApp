@@ -1,3 +1,5 @@
+import sys
+sys.path.append("/".join(x for x in __file__.split("/")[:-1]))
 from kivymd.app import MDApp
 from kivymd.uix.navigationdrawer import MDNavigationDrawer
 from kivymd.uix.list import TwoLineAvatarIconListItem
