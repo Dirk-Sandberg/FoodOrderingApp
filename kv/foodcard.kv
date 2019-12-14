@@ -2,7 +2,6 @@
 <FoodCard@Test>:
     source: ""
     title: ""
-    description: ""
     cost: 8.99
     on_release:
         app.add_to_cart(root.title, root.source, root.cost)
@@ -36,7 +35,7 @@
                 id: label
                 height: self.texture_size[1] + dp(15)
                 size_hint_y: None
-                text: root.description
+                text: root.title
                 color: 0,0,0,1
             #BoxLayout:
             #    pos_hint: {"center_x": .5, "center_y": .5}
