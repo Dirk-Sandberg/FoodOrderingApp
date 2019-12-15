@@ -19,7 +19,7 @@
     height: line.height
     TwoLineAvatarIconListItem:
         id: line
-        text: "Item: " + root.name
+        text: root.name
         secondary_text: root.side + root.drink
         #on_release:
         #    print(root.height, line.height, root.parent.height)
@@ -80,6 +80,19 @@
                         size_hint_y: None
                         text: "0.0"
                         halign: "right"
+            BoxLayout:
+                height: self.minimum_height
+                size_hint_y: None
+                MDLabel:
+                    height: select_location_button.height
+                    size_hint_y: None
+                    text: "Pickup Location: "
+                MDTextButton:
+                    id: select_location_button
+                    markup: True
+                    text: "[u]Select Location[/u]" if not root.location else "[u]"+root.location+"[/u]"
+                    on_release:
+                        root.display_choose_location_menu()
         MDFloatingActionButton:
             id: fab
             pos: dp(15), dp(15)

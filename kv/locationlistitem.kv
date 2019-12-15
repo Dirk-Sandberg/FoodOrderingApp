@@ -1,0 +1,9 @@
+<LocationListItem>:
+    dialog: None # Reference to the dialog box
+    screen: None # Reference to the item screen for this entree
+    source: ""
+    text: "32220 W ina road"
+    secondary_text: "3.22 miles away"
+    on_release:
+        self.dialog.dismiss()
+        self.screen.location = self.text
