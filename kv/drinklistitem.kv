@@ -1,9 +1,12 @@
 #:import Drink fooditem.Drink
 
-<DrinkImage@ILeftBody+Image>:
+<DrinkImage@IRightBody+MDCard>:
     source: ""
-    allow_stretch: True
-    keep_ratio: False
+    elevation: 6
+    Image:
+        source: root.source
+        allow_stretch: True
+        keep_ratio: False
 
 <DrinkListItem>:
     dialog: None # Reference to the dialog box

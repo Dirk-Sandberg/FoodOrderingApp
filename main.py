@@ -23,9 +23,10 @@ class Test(ThemableBehavior, RectangularRippleBehavior, ButtonBehavior,
 class RestaurantNavDrawer(MDNavigationDrawer):
     pass
 
-class SideListItem(TwoLineAvatarIconListItem):
+from kivymd.uix.list import TwoLineRightIconListItem
+class SideListItem(TwoLineRightIconListItem):
     pass
-class DrinkListItem(TwoLineAvatarIconListItem):
+class DrinkListItem(TwoLineRightIconListItem):
     pass
 
 
@@ -46,7 +47,7 @@ class MainApp(MDApp):
 
 
     def create_drinks(self):
-        drinks = [["Fountain Drink", "images/food1.jpg", "No charge"], ["Dasani", "images/food1.jpg", "0.99"], ["Lemonade", "images/food1.jpg", "0.99"]]
+        drinks = [["Fountain Drink", "images/fountain_drink.jpeg", "No charge"], ["Dasani", "images/water.jpg", "0.99"], ["Lemonade", "images/lemonade.jpg", "0.99"]]
         for i in range(len(drinks)):
             drink = DrinkListItem()
             drink.text = drinks[i][0]
@@ -57,7 +58,7 @@ class MainApp(MDApp):
             self.drinks.append(drink)
 
     def create_sides(self):
-        sides = [["White rice", "images/food1.jpg", "No charge"], ["Fried rice", "images/food1.jpg", "0.99"], ["Noodles", "images/food1.jpg", "0.99"]]
+        sides = [["White rice", "images/white_rice.jpeg", "No charge"], ["Fried rice", "images/fried_rice.jpg", "0.99"], ["Noodles", "images/noodles.jpg", "0.99"]]
         for i in range(len(sides)):
             side = SideListItem()
             side.text = sides[i][0]

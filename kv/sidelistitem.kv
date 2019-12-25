@@ -1,9 +1,12 @@
 #:import toast kivymd.toast.toast
 #:import Side fooditem.Side
-<SideImage@ILeftBody+Image>:
+<SideImage@IRightBody+MDCard>:
     source: ""
-    allow_stretch: True
-    keep_ratio: False
+    elevation: 6
+    Image:
+        source: root.source
+        allow_stretch: True
+        keep_ratio: False
 
 <SideListItem>:
     dialog: None # Reference to the dialog box
