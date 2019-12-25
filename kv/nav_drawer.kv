@@ -1,14 +1,21 @@
 <RestaurantNavDrawer>:
+    drawer_logo: 'images/logo.png'
+    drawer_logo_allow_stretch: False
+    drawer_logo_keep_ratio: True
     NavigationDrawerIconButton:
         text: "Menu"
+        icon: 'view-list'
         on_release:
             app.root.ids.screen_manager.change_screen("menu_screen")
     NavigationDrawerIconButton:
         text: "Coupons"
+        icon: 'wallet-giftcard'
     NavigationDrawerIconButton:
         text: "Locations"
+        icon: 'map-legend'
     NavigationDrawerIconButton:
         text: "Contact"
+        icon: 'information'
 
 
 
