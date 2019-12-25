@@ -1,0 +1,25 @@
+<RemoveCardLeftIconButton@ILeftBodyTouch+MDIconButton>:
+    icon: "cart-remove"
+
+<PriceTotal@IRightBody+MDLabel>:
+    text: "nothing"
+
+
+
+<ReviewCard>:
+    orientation: 'vertical'
+    name: ""
+    cost: 0.0
+    side: ""
+    drink: ""
+    size_hint_y: None
+    height: line.height
+    TwoLineRightIconListItem:
+        id: line
+        text: root.name
+        secondary_text: root.side + root.drink
+        on_release:
+            app.root.ids.order_screen.remove_meal(root.name)
+            root.parent.remove_widget(root)
+        PriceTotal:
+            text: str(root.cost)

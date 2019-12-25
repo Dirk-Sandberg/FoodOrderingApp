@@ -1,35 +1,6 @@
 ##:include kv/side.kv
 ##:include kv/drink.kv
 
-<RemoveCardLeftIconButton@ILeftBodyTouch+MDIconButton>:
-    icon: "cart-remove"
-
-<PriceTotal@IRightBody+MDLabel>:
-    text: "nothing"
-
-
-
-<ReviewCard>:
-    orientation: 'vertical'
-    name: ""
-    cost: 0.0
-    side: ""
-    drink: ""
-    size_hint_y: None
-    height: line.height
-    TwoLineAvatarIconListItem:
-        id: line
-        text: root.name
-        secondary_text: root.side + root.drink
-        #on_release:
-        #    print(root.height, line.height, root.parent.height)
-        RemoveCardLeftIconButton:
-            on_release:
-                app.root.ids.order_screen.remove_meal(root.name)
-                root.parent.remove_widget(root)
-        PriceTotal:
-            text: str(root.cost)
-
 <ReviewScreen@Screen>:
     on_pre_enter:
         total.text = "0.0"
@@ -41,27 +12,32 @@
         self.remove_cards()
     FloatLayout:
         BoxLayout:
-            padding: dp(20)
             spacing: dp(20)
             orientation: 'vertical'
             size_hint_y: None
             height: root.height - fab.top
             y: fab.top
-            MDLabel:
-                text: "Review your order"
+            BoxLayout:
+                padding: dp(20), dp(20), dp(20), dp(0)
                 size_hint_y: None
-                height: self.texture_size[1]
-                halign: 'center'
-            ScrollView:
-                do_scroll_x: False
-                MDList:
-                    spacing: dp(20)
-                    padding: dp(20)
-                    id: card_list
+                height: self.minimum_height
+                MDLabel:
+                    text: "Review your order"
+                    size_hint_y: None
+                    height: self.texture_size[1]
+                    halign: 'center'
+            BoxLayout:
+                padding: dp(2), dp(0), dp(2), dp(0)
+                ScrollView:
+                    do_scroll_x: False
+                    MDList:
+                        spacing: dp(20)
+                        padding: dp(20), dp(5), dp(20), dp(5)
+                        id: card_list
             BoxLayout:
                 size_hint_y: None
                 height: self.minimum_height
-                padding: dp(20)
+                padding: dp(20), dp(0), dp(20), dp(0)
                 spacing: dp(20)
                 orientation: 'vertical'
                 MDSeparator:
@@ -82,6 +58,7 @@
                         halign: "right"
             BoxLayout:
                 height: self.minimum_height
+                padding: dp(20), dp(0), dp(20), dp(20)
                 size_hint_y: None
                 MDLabel:
                     height: select_location_button.height

@@ -213,8 +213,8 @@ Builder.load_string(
             size_hint_y: None
             height: self.texture_size[1]
             markup: True
-            shorten_from: 'right'
-            shorten: True
+            #shorten_from: 'right'
+            #shorten: True
 
         MDLabel:
             id: _lbl_secondary
@@ -225,8 +225,8 @@ Builder.load_string(
             size_hint_y: None
             height: 0 if root._num_lines == 1 else self.texture_size[1]
             shorten: True
-            shorten_from: 'right'
-            markup: True
+            #shorten_from: 'right'
+            #markup: True
 
         MDLabel:
             id: _lbl_tertiary
@@ -236,8 +236,8 @@ Builder.load_string(
             text_color: root.tertiary_text_color
             size_hint_y: None
             height: 0 if root._num_lines == 1 else self.texture_size[1]
-            shorten: True
-            shorten_from: 'right'
+            #shorten: True
+            #shorten_from: 'right'
             markup: True
 
 
